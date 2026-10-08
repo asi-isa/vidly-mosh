@@ -1,21 +1,24 @@
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import debug from "debug";
 import * as z from "zod";
 
 import { env } from "./config.js";
 
-const app = express();
+const log = debug("app:startapp");
 
-app.use(express.static("public"));
-app.use(express.json());
+const app = express();
 
 app.use(helmet());
 
 if (app.get("env") === "development") {
   app.use(morgan("dev"));
-  console.log("Logging enabled...");
+  log("Logging enabled...");
 }
+
+app.use(express.static("public"));
+app.use(express.json());
 
 const genres = [
   { id: 1, title: "Horror" },
@@ -83,4 +86,4 @@ app.delete("/api/genres/:id", (req, res) => {
   return res.status(204);
 });
 
-app.listen(env.PORT, () => `Listening on port: ${env.PORT}`);
+app.listen(env.PORT, () => debug(`Listening on port: ${env.PORT}`));
