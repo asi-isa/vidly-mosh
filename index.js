@@ -4,7 +4,9 @@ import morgan from "morgan";
 import debug from "debug";
 import nunjucks from "nunjucks";
 
+import home from "./routes/index.js";
 import genres from "./routes/genres.js";
+
 import { env } from "./config.js";
 
 const log = debug("app:startapp");
@@ -26,10 +28,7 @@ if (app.get("env") === "development") {
 app.use(express.static("public"));
 app.use(express.json());
 
+app.use("/", home);
 app.use("/api/genres", genres);
-
-app.get("/", (req, res) => {
-  res.render("index.html", { heading: "Hello Node!" });
-});
 
 app.listen(env.PORT, () => debug(`Listening on port: ${env.PORT}`));
