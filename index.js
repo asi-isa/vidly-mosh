@@ -1,9 +1,11 @@
 import express from "express";
+import helmet from "helmet";
 import morgan from "morgan";
 import * as z from "zod";
 
 const app = express();
 app.use(morgan("dev"));
+app.use(helmet());
 app.use(express.static("public"));
 app.use(express.json());
 
