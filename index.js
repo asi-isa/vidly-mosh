@@ -1,7 +1,9 @@
 import express from "express";
+import morgan from "morgan";
 import * as z from "zod";
 
 const app = express();
+app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.json());
 
