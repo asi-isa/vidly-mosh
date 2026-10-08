@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import debug from "debug";
+import nunjucks from "nunjucks";
 import * as z from "zod";
 
 import { env } from "./config.js";
@@ -9,6 +10,11 @@ import { env } from "./config.js";
 const log = debug("app:startapp");
 
 const app = express();
+
+nunjucks.configure("views", {
+  autoescape: true,
+  express: app,
+});
 
 app.use(helmet());
 
@@ -19,6 +25,10 @@ if (app.get("env") === "development") {
 
 app.use(express.static("public"));
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.render("index.html", { heading: "Hello Node!" });
+});
 
 const genres = [
   { id: 1, title: "Horror" },
