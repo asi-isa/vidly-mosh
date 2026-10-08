@@ -3,6 +3,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import * as z from "zod";
 
+import { env } from "./config.js";
+
 const app = express();
 
 app.use(express.static("public"));
@@ -81,5 +83,4 @@ app.delete("/api/genres/:id", (req, res) => {
   return res.status(204);
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => `Listening on port: ${port}`);
+app.listen(env.PORT, () => `Listening on port: ${env.PORT}`);
