@@ -4,10 +4,16 @@ import morgan from "morgan";
 import * as z from "zod";
 
 const app = express();
-app.use(morgan("dev"));
-app.use(helmet());
+
 app.use(express.static("public"));
 app.use(express.json());
+
+app.use(helmet());
+
+if (app.get("env") === "development") {
+  app.use(morgan("dev"));
+  console.log("Logging enabled...");
+}
 
 const genres = [
   { id: 1, title: "Horror" },
