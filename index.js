@@ -5,7 +5,7 @@ import debug from "debug";
 import nunjucks from "nunjucks";
 import mongoose from "mongoose";
 
-import { router as home } from "./routes/index.js";
+import { router as home } from "./routes/home.js";
 import { router as genres } from "./routes/genres.js";
 import { router as customers } from "./routes/customers.js";
 import { router as movies } from "./routes/movies.js";
