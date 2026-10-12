@@ -1,23 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import * as z from "zod";
+
+import { Customer, CustomerSchema } from "../models/customer.js";
 
 const router = express.Router();
-
-const Customer = mongoose.model(
-  "Customer",
-  new mongoose.Schema({
-    isGold: { type: Boolean, required: true },
-    name: { type: String, required: true },
-    phone: { type: String, required: true },
-  }),
-);
-
-const CustomerSchema = z.object({
-  isGold: z.boolean(),
-  name: z.string(),
-  phone: z.string(),
-});
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
