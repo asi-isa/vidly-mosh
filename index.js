@@ -5,10 +5,7 @@ import debug from "debug";
 import nunjucks from "nunjucks";
 import mongoose from "mongoose";
 
-import { router as home } from "./routes/home.js";
-import { router as genres } from "./routes/genres.js";
-import { router as customers } from "./routes/customers.js";
-import { router as movies } from "./routes/movies.js";
+import { mountRoutes } from "./routes/index.js";
 import { env } from "./config.js";
 
 const app = express();
@@ -35,9 +32,6 @@ mongoose
   .then(() => log("Connected to MongoDB..."))
   .catch((err) => log("Could not connect to MongoDB", err));
 
-app.use("/", home);
-app.use("/api/genres", genres);
-app.use("/api/customers", customers);
-app.use("/api/movies", movies);
+mountRoutes(app);
 
 app.listen(env.PORT, () => log(`Listening on port: ${env.PORT}`));
