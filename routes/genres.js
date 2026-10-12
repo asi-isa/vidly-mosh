@@ -1,19 +1,8 @@
 import express from "express";
-import mongoose from "mongoose";
-import * as z from "zod";
+
+import { Genre, GenreSchema } from "../models/genre.js";
 
 const router = express.Router();
-
-const Genre = mongoose.model(
-  "Genre",
-  new mongoose.Schema({
-    name: { type: String, required: true },
-  }),
-);
-
-const GenreSchema = z.object({
-  name: z.string().min(3),
-});
 
 router.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
