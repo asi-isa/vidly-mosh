@@ -5,8 +5,9 @@ import debug from "debug";
 import nunjucks from "nunjucks";
 import mongoose from "mongoose";
 
-import home from "./routes/index.js";
-import genres from "./routes/genres.js";
+import { router as home } from "./routes/index.js";
+import { router as genres } from "./routes/genres.js";
+import { router as customers } from "./routes/customers.js";
 import { env } from "./config.js";
 
 const app = express();
@@ -35,5 +36,6 @@ mongoose
 
 app.use("/", home);
 app.use("/api/genres", genres);
+app.use("/api/customers", customers);
 
 app.listen(env.PORT, () => log(`Listening on port: ${env.PORT}`));

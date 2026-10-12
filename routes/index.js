@@ -6,4 +6,4 @@ router.get("/", (req, res) => {
   res.render("index.html", { heading: "Hello Node!" });
 });
 
-export default router;
+export { router };
