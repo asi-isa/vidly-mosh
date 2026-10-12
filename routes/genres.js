@@ -1,6 +1,6 @@
 import express from "express";
 
-import { Genre, GenreSchema } from "../models/genre.js";
+import { Genre, GenreValidationSchema } from "../models/genre.js";
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { success, error, data } = GenreSchema.safeParse(req.body);
+  const { success, error, data } = GenreValidationSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error.message);
 
   const genre = await Genre.create({ name: data.name });
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const { success, error, data } = GenreSchema.safeParse(req.body);
+  const { success, error, data } = GenreValidationSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error);
 
   const genre = await Genre.findByIdAndUpdate(
