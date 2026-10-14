@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 
-import { Customer, CustomerSchema } from "../models/customer.js";
+import { Customer, CustomerClientSchema } from "../models/customer.js";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { data, success, error } = CustomerSchema.safeParse(req.body);
+  const { data, success, error } = CustomerClientSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error);
 
   const customer = await Customer.create(data);

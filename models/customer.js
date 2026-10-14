@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
 import * as z from "zod";
 
-export const Customer = mongoose.model(
-  "Customer",
-  new mongoose.Schema({
-    isGold: { type: Boolean, required: true },
-    name: { type: String, required: true },
-    phone: { type: String, required: true },
-  }),
-);
+export const customerSchema = new mongoose.Schema({
+  isGold: { type: Boolean, required: true },
+  name: { type: String, required: true },
+  phone: { type: String, required: true },
+});
 
-export const CustomerSchema = z.object({
+export const Customer = mongoose.model("Customer", customerSchema);
+
+export const CustomerClientSchema = z.object({
   isGold: z.boolean(),
   name: z.string(),
   phone: z.string(),
