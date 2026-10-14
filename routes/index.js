@@ -3,6 +3,7 @@ import { router as genres } from "./genres.js";
 import { router as customers } from "./customers.js";
 import { router as movies } from "./movies.js";
 import { router as rentals } from "./rentals.js";
+import { router as users } from "./users.js";
 
 export const mountRoutes = (app) => {
   app.use("/", home);
@@ -10,4 +11,5 @@ export const mountRoutes = (app) => {
   app.use("/api/customers", customers);
   app.use("/api/movies", movies);
   app.use("/api/rentals", rentals);
+  app.use("/api/users", users);
 };
