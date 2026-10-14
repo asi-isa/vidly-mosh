@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 import * as z from "zod";
 
 export const userSchema = new mongoose.Schema({
@@ -17,6 +18,10 @@ export const userSchema = new mongoose.Schema({
     minLength: 4,
   },
 });
+
+userSchema.methods.generateAuthToken = function () {
+  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
+};
 
 export const User = mongoose.model("User", userSchema);
 
