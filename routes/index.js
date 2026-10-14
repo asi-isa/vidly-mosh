@@ -4,6 +4,7 @@ import { router as customers } from "./customers.js";
 import { router as movies } from "./movies.js";
 import { router as rentals } from "./rentals.js";
 import { router as users } from "./users.js";
+import { router as auth } from "./auth.js";
 
 export const mountRoutes = (app) => {
   app.use("/", home);
@@ -12,4 +13,5 @@ export const mountRoutes = (app) => {
   app.use("/api/movies", movies);
   app.use("/api/rentals", rentals);
   app.use("/api/users", users);
+  app.use("/api/auth", auth);
 };

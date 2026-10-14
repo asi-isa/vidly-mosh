@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { Router } from "express";
 
 import { User, UserClientValidation } from "../models/user.js";
@@ -21,7 +22,10 @@ router.post("/", async (req, res) => {
     password: hashed,
   });
 
-  return res.status(201).send({
+  const jwtPayload = { _id: user._id };
+  const token = jwt.sign(jwtPayload, process.env.JWT_SECRET);
+
+  return res.status(201).header("x-auth-token", token).send({
     id: user._id,
     email: user.email,
     name: user.name,
