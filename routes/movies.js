@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 
+import { auth } from "../middleware/auth.js";
 import { Movie, MovieValidationSchema } from "../models/movie.js";
 import { Genre } from "../models/genre.js";
 
@@ -23,7 +24,7 @@ router.get("/:id", async (req, res) => {
   return res.send(movie);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { success, data, error } = MovieValidationSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error.message);
 
@@ -44,7 +45,7 @@ router.post("/", async (req, res) => {
   return res.status(201).send(movie);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const { id } = req.params;
   if (!mongoose.isValidObjectId(id)) return res.status(400).send("Invalid ID");
 
@@ -55,7 +56,7 @@ router.delete("/:id", async (req, res) => {
   return res.send(movie);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const { id } = req.params;
   if (!mongoose.isValidObjectId(id)) return res.status(400).send("Invalid ID");
 

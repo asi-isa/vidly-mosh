@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { auth } from "../middleware/auth.js";
 import { Rental, RentalClientSchema } from "../models/rental.js";
 import { Movie } from "../models/movie.js";
 import { Customer } from "../models/customer.js";
@@ -11,7 +12,7 @@ router.get("/", async (req, res) => {
   return res.send(rentals);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { success, data, error } = RentalClientSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error.message);
 

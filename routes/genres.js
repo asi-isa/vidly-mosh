@@ -1,5 +1,6 @@
 import express from "express";
 
+import { auth } from "../middleware/auth.js";
 import { Genre, GenreValidationSchema } from "../models/genre.js";
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { success, error, data } = GenreValidationSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error.message);
 
@@ -28,7 +29,7 @@ router.post("/", async (req, res) => {
   return res.status(201).send(genre);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const { success, error, data } = GenreValidationSchema.safeParse(req.body);
   if (!success) return res.status(400).send(error);
 
@@ -43,7 +44,7 @@ router.put("/:id", async (req, res) => {
   return res.send(genre);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const genre = await Genre.findByIdAndDelete(req.params.id);
 
   if (!genre) return res.status(404).send("Genre not found");
