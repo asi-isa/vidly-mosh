@@ -5,12 +5,12 @@ import { Genre, GenreValidationSchema } from "../models/genre.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const genres = await Genre.find().sort("name");
     return res.send(genres);
   } catch (error) {
-    return res.status(500).send("something went wrong");
+    next(error);
   }
 });
 

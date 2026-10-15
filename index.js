@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 
 import { mountRoutes } from "./routes/index.js";
 import { env } from "./config.js";
+import { error } from "./middleware/error.js";
 
 const app = express();
 
@@ -33,5 +34,7 @@ mongoose
   .catch((err) => log("Could not connect to MongoDB", err));
 
 mountRoutes(app);
+
+app.use(error)
 
 app.listen(env.PORT, () => log(`Listening on port: ${env.PORT}`));
