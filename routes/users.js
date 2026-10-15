@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Router } from "express";
 
-import { auth } from "../middleware/auth.js";
+import { auth } from "../middleware/index.js";
 import { User, UserClientValidation } from "../models/user.js";
 
 const router = Router();
@@ -24,6 +24,7 @@ router.post("/", async (req, res) => {
   user = await User.create({
     email: data.email,
     name: data.name,
+    isAdmin: data.isAdmin,
     password: hashed,
   });
 
@@ -33,6 +34,7 @@ router.post("/", async (req, res) => {
     id: user._id,
     email: user.email,
     name: user.name,
+    isAdmin: user.isAdmin,
   });
 });
 
