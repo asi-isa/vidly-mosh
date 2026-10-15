@@ -1,17 +1,14 @@
 import express from "express";
 
-import { auth, admin, asyncMiddleware } from "../middleware/index.js";
+import { auth, admin } from "../middleware/index.js";
 import { Genre, GenreValidationSchema } from "../models/genre.js";
 
 const router = express.Router();
 
-router.get(
-  "/",
-  asyncMiddleware(async (req, res) => {
-    const genres = await Genre.find().sort("name");
-    return res.send(genres);
-  }),
-);
+router.get("/", async (req, res) => {
+  const genres = await Genre.find().sort("name");
+  return res.send(genres);
+});
 
 router.get("/:id", async (req, res) => {
   try {
