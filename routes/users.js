@@ -1,9 +1,15 @@
 import bcrypt from "bcrypt";
 import { Router } from "express";
 
+import { auth } from "../middleware/auth.js";
 import { User, UserClientValidation } from "../models/user.js";
 
 const router = Router();
+
+router.get("/me", auth, async (req, res) => {
+  const user = await User.findById(req.user._id).select("-password");
+  return res.send(user);
+});
 
 router.post("/", async (req, res) => {
   const { success, data, error } = UserClientValidation.safeParse(req.body);
