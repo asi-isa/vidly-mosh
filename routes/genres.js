@@ -6,6 +6,7 @@ import { Genre, GenreValidationSchema } from "../models/genre.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  throw new Error("Check logging");
   const genres = await Genre.find().sort("name");
   return res.send(genres);
 });

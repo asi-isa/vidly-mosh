@@ -35,6 +35,6 @@ mongoose
 
 mountRoutes(app);
 
-app.use(error)
+app.use(error);
 
 app.listen(env.PORT, () => log(`Listening on port: ${env.PORT}`));
