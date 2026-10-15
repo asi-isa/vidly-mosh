@@ -21,6 +21,7 @@
     "morgan": "^1.12.1",
     "nunjucks": "^3.2.4",
     "winston": "^3.19.0",
+    "winston-mongodb": "^7.0.1",
     "zod": "^4.6.5"
   }
 }

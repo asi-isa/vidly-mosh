@@ -29,7 +29,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://localhost/vidly")
+  .connect(process.env.DATABASE_URL)
   .then(() => log("Connected to MongoDB..."))
   .catch((err) => log("Could not connect to MongoDB", err));
 

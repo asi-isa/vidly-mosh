@@ -1,4 +1,5 @@
 import winston from "winston";
+import "winston-mongodb";
 
 export const logger = winston.createLogger({
   level: "info",
@@ -15,6 +16,7 @@ export const logger = winston.createLogger({
     //   (i.e., fatal, error, warn, and info, but not trace)
     //
     new winston.transports.File({ filename: "combined.log" }),
+    new winston.transports.MongoDB({ db: process.env.DATABASE_URL }),
   ],
 });
 
