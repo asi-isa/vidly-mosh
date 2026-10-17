@@ -3,11 +3,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import debug from "debug";
 import nunjucks from "nunjucks";
-import mongoose from "mongoose";
 
 import { mountRoutes } from "./routes/index.js";
 import { env } from "./config.js";
 import { error } from "./middleware/error.js";
+import { dbInit } from "./db/index.js";
 
 const app = express();
 
@@ -28,10 +28,7 @@ if (app.get("env") === "development") {
 app.use(express.static("public"));
 app.use(express.json());
 
-mongoose
-  .connect(process.env.DATABASE_URL)
-  .then(() => log("Connected to MongoDB..."))
-  .catch((err) => log("Could not connect to MongoDB", err));
+dbInit();
 
 mountRoutes(app);
 
