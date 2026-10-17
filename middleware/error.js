@@ -1,4 +1,4 @@
-import { logger } from "../logger/index.js";
+import { logger } from "../lib/logger/index.js";
 
 export function error(err, req, res, next) {
   logger.error(err.message, err);
