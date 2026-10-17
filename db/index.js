@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import debug from "debug";
 
-export function dbInit() {
+const log = debug("app:db");
+
+export function initDb() {
   mongoose
     .connect(process.env.DATABASE_URL)
     .then(() => log("Connected to MongoDB..."))

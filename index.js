@@ -1,37 +1,24 @@
 import express from "express";
-import helmet from "helmet";
-import morgan from "morgan";
 import debug from "debug";
-import nunjucks from "nunjucks";
 
-import { mountRoutes } from "./routes/index.js";
 import { env } from "./config.js";
-import { error } from "./middleware/error.js";
-import { dbInit } from "./db/index.js";
+import { initDb } from "./db/index.js";
+import { initMiddleware, errorHandler } from "./middleware/index.js";
+import { initTE } from "./lib/templating-engine.js";
+import { initRoutes } from "./routes/index.js";
 
 const app = express();
 
 const log = debug("app:startapp");
 
-nunjucks.configure("views", {
-  autoescape: true,
-  express: app,
-});
+initTE(app);
 
-app.use(helmet());
+initMiddleware(app);
 
-if (app.get("env") === "development") {
-  app.use(morgan("dev"));
-  log("Logging enabled...");
-}
+initDb();
 
-app.use(express.static("public"));
-app.use(express.json());
+initRoutes(app);
 
-dbInit();
-
-mountRoutes(app);
-
-app.use(error);
+app.use(errorHandler);
 
 app.listen(env.PORT, () => log(`Listening on port: ${env.PORT}`));

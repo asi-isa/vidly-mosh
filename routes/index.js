@@ -6,7 +6,7 @@ import { router as rentals } from "./rentals.js";
 import { router as users } from "./users.js";
 import { router as auth } from "./auth.js";
 
-export const mountRoutes = (app) => {
+export const initRoutes = (app) => {
   app.use("/", home);
   app.use("/api/genres", genres);
   app.use("/api/customers", customers);
