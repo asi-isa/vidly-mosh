@@ -1,15 +1,17 @@
 import express from "express";
-import debug from "debug";
 
+import { logger } from "./lib/logger/index.js";
 import { env } from "./config.js";
 import { initDb } from "./lib/db/index.js";
 import { initMiddleware, errorHandler } from "./middleware/index.js";
 import { initTE } from "./lib/templating-engine.js";
 import { initRoutes } from "./routes/index.js";
 
-const app = express();
+process.on("unhandledRejection", (ex) => {
+  throw ex;
+});
 
-const log = debug("app:startapp");
+const app = express();
 
 initTE(app);
 
@@ -21,4 +23,4 @@ initRoutes(app);
 
 app.use(errorHandler);
 
-app.listen(env.PORT, () => log(`Listening on port: ${env.PORT}`));
+app.listen(env.PORT, () => logger.info(`Listening on port: ${env.PORT}`));
